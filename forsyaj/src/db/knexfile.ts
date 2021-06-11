@@ -1,24 +1,36 @@
 
+import {Knex}  from "knex";
 
-module.exports = {
+/*const dotenv = require ('dotenv');
+dotenv.config();
+*/
+export class KnexDB{
+  db!: Knex;
+  initialize!: boolean;
+  knexConfig: Knex.Config;
+ 
+  constructor(){
+    this.knexConfig={};
+  }
+  init():Promise<boolean>{
+    return new Promise(async(resolve,reject)=>{
+      if(this.initialize== true)
+      resolve(true);
 
-    development: {
-      client: 'pg',
-      connection: {
-        host:'localhost',
-        port: 8000,
-        database: 'StajProje',
-        user:     '16524',
-        password:  null
-      },
-      pool: {
-        min: 2,
-        max: 10
-      },
-      migrations: {
-        extension: 'ts',
-        tableName: 'knex_migrations'
-      }
-    },
-  
-  };
+        this.knexConfig={
+          client:"pg",
+          connection:process.env.POSTGRES_URL,
+          pool:{
+            min:1,
+            max:3
+          },
+        };
+        this.db = Knex(this.knexConfig);
+        const result=this.db.raw("select 1=1");
+        this.initialize=true;
+        resolve(true);
+    });
+
+  }
+
+}
