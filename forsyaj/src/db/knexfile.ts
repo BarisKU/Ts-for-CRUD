@@ -1,5 +1,4 @@
-
-import {Knex}  from "knex";
+import Knex  from "knex";
 
 /*const dotenv = require ('dotenv');
 dotenv.config();
@@ -19,7 +18,7 @@ export class KnexDB{
 
         this.knexConfig={
           client:"pg",
-          connection:process.env.POSTGRES_URL,
+          connection:process.env.POSTGRES_URL||'postgres://postgres:password@localhost:5432/deneme',
           pool:{
             min:1,
             max:3
@@ -34,3 +33,6 @@ export class KnexDB{
   }
 
 }
+const knexDB = new KnexDB();
+export default knexDB;
+
