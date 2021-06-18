@@ -1,4 +1,3 @@
-
 //const PeersonServicee = require('../service/person')
 import express, {NextFunction, Request, Response} from 'express';
 //import * as express from "express";
@@ -13,7 +12,7 @@ export default class PersonController{
         this.initializeRoutes();
         }
 
-    addPerson(req:Request,res:Response,next:NextFunction){
+    addPerson(req:Request,res:Response){
         const{body}=req;
         schemas.add.validateAsync(body).then(()=>{
             this.personService.addPerson(body).then((result=>{
@@ -36,13 +35,14 @@ export default class PersonController{
         const params = req.query;
         schemas.list.validateAsync(params)
         .then(async()=>{
-        let 
+        let  filters : 
 
         })
 
     }
     */
-    deletePerson(req:Request,res:Response,next:NextFunction){
+   /*
+    deletePerson(req:Request,res:Response){
         try{
             this.personService.deletePerson(schemas.list.id).then(result)=>{
                 return res.status(200).send(result);
@@ -50,11 +50,10 @@ export default class PersonController{
         }catch(error){
             console.log(error);
         };
-
-
     }
+    */
     initializeRoutes(){
-    this.router.get("/:id",this.addPerson);
+    this.router.post("/",this.addPerson.bind(this));
 
     }
 
