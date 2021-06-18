@@ -1,16 +1,17 @@
 //const dab = require('..src/db/db')
-import db from '../db/db'
+//import db from '../db/db'
+import knexDB from '../db/knex';
 import { person } from '../interface/Persontype';
 
 export default class PersonRepository{
-   async createPerson(person:person){
-    const[id]= await db('person').insert({
+   async addPerson(person:person){
+    const[id]= await knexDB.db('person').insert({
         email:person.email,
         firstName:person.firstName,
         lastName:person.lastName,
-    }).returning('id');
+    }).returning('person.id');
         
-    return('id');
+    return(person.id);
     }
 
 }
